@@ -4,10 +4,24 @@
  * @return {number[]}
  */
 var getLeastNumbers = function (arr, k) {
-    
+    if (k === 0) return null;
+    if (k >= arr.length) return arr;
+
+    const swap = (i, j) => {
+        
+    }
+
+    const shake = () => {
+        let left = 1, right = arr.length - 1;
+        while(left < right) {
+
+        }
+    }
+
+    return shake();
 };
 
-module.exports = {getLeastNumbers};
+module.exports = { getLeastNumbers };
 
 /*
 

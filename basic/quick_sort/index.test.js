@@ -1,4 +1,4 @@
-const { quickSort } = require('./');
+const { quickSort, quickSortMine } = require('./');
 
 describe('Quick sort Tests', () => {
     it('[3,1,2]', () => {
