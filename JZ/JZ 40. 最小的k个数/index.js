@@ -4,21 +4,60 @@
  * @return {number[]}
  */
 var getLeastNumbers = function (arr, k) {
-    if (k === 0) return null;
-    if (k >= arr.length) return arr;
+    if(k == 0) return [];
+    const smallNums = [arr[0]];
 
-    const swap = (i, j) => {
-        
-    }
-
-    const shake = () => {
-        let left = 1, right = arr.length - 1;
-        while(left < right) {
-
+    const insertToSmallNums = (n) => {
+        if (smallNums[smallNums.length - 1] <= n) {
+            smallNums.push(n);
+        } else {
+            const index = smallNums.findIndex(it => it > n);
+            smallNums.splice(index, 0, n);
         }
     }
 
-    return shake();
+    for (let i = 1; i < arr.length; i++) {
+        insertToSmallNums(arr[i]);
+        if (smallNums.length > k) {
+            smallNums.pop();
+        }
+    }
+
+    return smallNums;
+};
+
+var getLeastNumbers2 = function (arr, k) {
+    if (k === 0) return [];
+    if (k >= arr.length) return arr;
+
+    const shake = (arr, start, end) => {
+        if (end <= start) {
+            return;
+        }
+        let left = start, right = end, x = arr[start];
+        while (left < right) {
+            while (arr[right] > x && left < right) {
+                right--;
+            }
+            if (left < right) {
+                arr[left] = arr[right];
+            }
+            while (arr[left] < x && left < right) {
+                left++;
+            }
+            if (left < right) {
+                arr[right] = arr[left];
+            }
+        }
+        arr[left] = x;
+
+        if (left < (k - 1)) {
+            shake(arr, left + 1, end);
+        }
+    }
+
+    shake(arr, 0, arr.length - 1);
+    return arr.slice(0, k);
 };
 
 module.exports = { getLeastNumbers };
